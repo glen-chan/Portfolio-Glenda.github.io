@@ -37,7 +37,7 @@
 						class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
 				<li><a href="https://github.com/glen-chan" class="icon brands fa-github"><span
 							class="label">Github</span></a></li>
-				<li><a href="glenda.portillo007@gmail.com" class="icon solid fa-envelope"><span
+				<li><a href="mailto: glenda.portillo007@gmail.com" class="icon solid fa-envelope"><span
 							class="label">Email</span></a></li>
 			</ul>
 		</footer>
@@ -58,42 +58,39 @@
 					<header class="major">
 						<h2>Data Modelling</h2>
 					</header>
-					<p>This is an example of how to create a logical data model based on an Entity Relationship diagram and a case scenario.</p>
-					<p> This example is an excercise published by the Vienna University of Economic and Business on their website. I will add here the case scenario but I will leave as well the link to the website in case you want to take a deeper look.</p>
+					<p>This is an example of how to create a dimensional data model based on an Entity Relationship diagram and a case scenario. This is actually an excercise published by the Vienna University of Economic and Business on their website. 
+						In case you want to take a deeper look of the excercise in the University website, clic <a href= "https://www.wu.ac.at/erp/webtrainer/dwh-webtrainer/exercise/46/dfm">Here</a></p>					
 					<img src="images/ModellingExcercise1.jpg" alt="" style="width:700px;height:275px;margin:0px -10px;"/>
 					<img src="images/ModellingExcercise2.jpg" alt="" style="width:700px;height:500px;margin:0px 10px;"/>
-					<img src="images/ModellingExcercise3.jpg" alt="" style="width:700px;height:150px;margin:0px 10px;"/>
+					
 				</div>
 			</section>
 
 			<section id="two">
 				<div class="container">
 					<header class="major">
-						<h4>Step 1: Define the Fact Table </h4>
+						<h4>Step 1: Define the Business Processes </h4>						
 					</header>
-					<p>Fact Table name should be the business process that defines the model. In this example, the model describes a travel booking system.
-					Some of the metrics that correspond to the fact table and that we can infer from the ER and the problem description are: </p>	
-					<p>-Number of bookings.
-					<br>-Number of customers	
-					<br>-Number of bookings
-					<br>-Number of travels
-					<br>-Number of destinations
-					<br>-Number of destination countries
-					<br>-Number of travel agencies
-					<br>-Total costs</p>	
-					
-					<p>So, our Fact Table should look like this:</p>
-					<img src="images/Ft.jpg" alt="" />					
+					<p>What's the process that we are trying to model? Sales, marketing, management, accounting?
+					<br>Based both on the written description and the schema, it's easy to detect that for this example the Business Process is: <b>booking, more specifically, travel booking</b></p>
+					<p>Keep into consideration that sometimes there can be more complex models, with more than one business process involved, but that was not the case for this example.
+						<br> Besides, if you don't have an ER schema when building your dimensional model, you can detect the process looking for the verbs included in the description. 
+						For this example the verbs that you see are: is, books, works, goes, belongs. 
+						From this verbs, the one that gives you an idea of what we are trying to model is books/booking.
+					</p>
 				</div>				
 			</section>
 
 			<section id="three">
 				<div class="container">
 					<header class="major">
-						<h4>Step 2: Define the granularity </h4>
+						<h4>Step 2: Define the Granularity </h4>
 					</header>
-					<p>Fact Table name should be the business process that defines the model. In this example, the model describes a travel booking system.
-					Some of the metrics that correspond to the fact table and that we can infer from the ER and the problem description are: </p>	
+					<p>The granularity indicates the lowest level of information that we will have.
+						<br> The excercise description is already giving us part of the solution for this step. The last line of the first paragraph, says that the Time Dimension consists of month, quarter and year. Because of this, the lowest level of this dimension is the month. Which as well menas that this model is intended for analysis per month, quarter and year.  
+						<br> For the rest of the details, you have to be able to answer this: How do we want our fact table to be?, what should be represented in each row of our fact table?
+						<br> The answer for this example would be: <b>The monthly travel bookings made for a customer with a travel agency.</b>						
+					</p>	
 									
 				</div>				
 			</section>
@@ -103,42 +100,68 @@
 					<header class="major">
 						<h4>Step 3: Define the Dimensions </h4>
 					</header>
-					<p>Dimensions' name should be Nouns that define the diferent entities/objects, associated to the business process. 
-						It's important to note that they are NOT necesarily the same as the Entities fro the ER diagram. 
-					This are the dimensions that you can find in the example: </p>	
+					<p>Dimensions are logical grouping of attributes and are defined by the granularity.						
+					<br>This are the dimensions that you can find in the example: </p>	
 					<p>-Customers.
 					<br>-Travels.	
-					<br>-Destinations.
-					<br>-Countries.
 					<br>-Agencies.
-					<br>-Date of Booking.						
-					
-					<p>Our model should now look like this:</p>
-					<img src="images/Ft.jpg" alt="" />					
+					<br>-Time.									
 				</div>				
 			</section>
 
-			<section id="fiive">
+			<section id="five">
 				<div class="container">
 					<header class="major">
-						<h4>Step 4: Define the Hierarchies </h4>
+						<h4>Step 3-a): Define the hierarchies </h4>
 					</header>
 					<p> 
-					This are the dimensions that you can find in the example: </p>	
-					<p>-Date of Booking:
-						<br>-Year.
-						<br>-Month.
-						<br>-Day.
-					<br>-Customer:
-						<br>-Type.
-						<br>-Address						
-					
-					<p>Our model should now look like this:</p>
-					<img src="images/Ft.jpg" alt="" />					
+					This are the hierarchies that you can find in the example: </p>	
+					<p><b>Time:</b>
+						<br>&ensp; &ensp; Year.
+						<br>&ensp; &ensp; Quarter.
+						<br>&ensp; &ensp; Month.
+					<br><b>Customer:</b>
+						<br>&ensp; &ensp;Type.
+						<br>&ensp; &ensp;Customer.												
+					<br><b>Destination:</b>
+						<br>&ensp; &ensp; Country.
+						<br>&ensp; &ensp; Destination.
+					<br><b>Agency:</b>
+						<br>&ensp; &ensp; Tour Operator.
+						<br>&ensp; &ensp; Agency.											
 				</div>				
 			</section>
 
-			
+			<section id="six">
+				<div class="container">
+					<header class="major">
+						<h4>Step 4: Define the Fact Table </h4>
+					</header>
+					<p>The fact table is where we define the facts, which are all the numeric, summarizable columns from the Data Warehouse 
+						Some of the metrics that correspond to the fact table and that we can infer from the ER and the problem description are: </p>	
+						<p>-Number of bookings.
+						<br>-Number of customers	
+						<br>-Number of travels
+						<br>-Number of travel agencies
+						<br>-Costs</p>	
+						
+						<p>So, our Fact Table should look like this:</p>
+						<img src="images/Ft.jpg" alt="" style="width:30%;height:30%;margin:0px -10px;"/>					
+
+						<p>Note that the part in Red defines the relationship between the Fact Table and the dimensions. Furthermore, the cost is the only fact that can be taken explicitelly from the description or the ER schema. The rest are just some ideas of measures that could be added.  </p>
+				</div>				
+			</section>
+
+			<section id="seven">
+				<div class="container">
+					<header class="major">
+						<h4>Step 5: Building the model </h4>
+					</header>
+					<p>After all previous steps, we are ready to gather everything in a single model, which will look like this: </p>	
+					<img src="images/Travel booking DM.png" alt="" style="width:700px;height:275px;margin:0px -10px;" />									
+				</div>				
+			</section>
+
 			<!-- Footer -->
 			<section id="footer">
 				<div class="container">
